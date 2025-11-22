@@ -21,12 +21,12 @@ interface NotesContextType {
   filters: NotesFilters;
   setFilters: (filters: NotesFilters) => void;
   fetchNotes: () => Promise<void>;
-  createNote: (data: CreateNoteRequest) => Promise<Note>;
+  createNote: (data: CreateNoteRequest) => Promise<Note | []>;
   updateNote: (
     id: number,
     data: UpdateNoteRequest,
     version?: number
-  ) => Promise<Note>;
+  ) => Promise<Note | []>;
   deleteNote: (id: number) => Promise<void>;
   restoreNote: (id: number) => Promise<void>;
 }
@@ -65,7 +65,6 @@ export const NotesProvider: React.FC<{ children: React.ReactNode }> = ({
         last: response.last,
       });
     } catch (error: any) {
-      console.error("Failed to fetch notes:", error);
       showToast("Failed to load notes", "error");
     } finally {
       setIsLoading(false);
@@ -76,7 +75,7 @@ export const NotesProvider: React.FC<{ children: React.ReactNode }> = ({
     setFiltersState(newFilters);
   }, []);
 
-  const createNote = async (data: CreateNoteRequest): Promise<Note> => {
+  const createNote = async (data: CreateNoteRequest): Promise<Note | []> => {
     try {
       const newNote = await apiService.createNote(data);
       showToast("Note created successfully", "success");
@@ -85,7 +84,7 @@ export const NotesProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch (error: any) {
       const message = error.response?.data?.message || "Failed to create note";
       showToast(message, "error");
-      throw error;
+      return [];
     }
   };
 
@@ -93,7 +92,7 @@ export const NotesProvider: React.FC<{ children: React.ReactNode }> = ({
     id: number,
     data: UpdateNoteRequest,
     version?: number
-  ): Promise<Note> => {
+  ): Promise<Note | []> => {
     try {
       const updatedNote = await apiService.updateNote(id, data, version);
       showToast("Note updated successfully", "success");
@@ -102,7 +101,7 @@ export const NotesProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch (error: any) {
       const message = error.response?.data?.message || "Failed to update note";
       showToast(message, "error");
-      throw error;
+      return [];
     }
   };
 
@@ -114,7 +113,6 @@ export const NotesProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch (error: any) {
       const message = error.response?.data?.message || "Failed to delete note";
       showToast(message, "error");
-      throw error;
     }
   };
 
@@ -126,7 +124,6 @@ export const NotesProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch (error: any) {
       const message = error.response?.data?.message || "Failed to restore note";
       showToast(message, "error");
-      throw error;
     }
   };
 

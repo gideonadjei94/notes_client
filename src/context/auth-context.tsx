@@ -89,7 +89,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const message =
         error.response?.data?.message || "Login failed. Please try again.";
       showToast(message, "error");
-      throw error;
     }
   };
 
@@ -102,7 +101,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const message =
         error.response?.data?.message || "Signup failed. Please try again.";
       showToast(message, "error");
-      throw error;
     }
   };
 
