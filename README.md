@@ -1,6 +1,6 @@
 # NotesApp Frontend
 
-A modern, secure, and feature-rich note-taking application built with React, TypeScript, and Tailwind CSS. This frontend application provides an elegant user interface for managing personal notes with advanced features like search, filtering, tagging, and soft deletion.
+A minimal and secure note-taking application built with React, TypeScript, and Tailwind CSS. This frontend application provides an elegant user interface for managing personal notes with advanced features like search, filtering, tagging, and soft deletion.
 
 ## 🌟 Features
 
