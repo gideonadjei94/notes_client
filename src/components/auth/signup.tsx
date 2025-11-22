@@ -64,9 +64,8 @@ const Signup: React.FC = () => {
 
     try {
       await signup(formData.username, formData.email, formData.password);
-      navigate("/dashboard", { replace: true });
+      navigate("/auth", { replace: true });
     } catch (error: any) {
-      // Error is already handled by AuthContext with toast
       if (error.response?.data?.field) {
         const field = error.response.data.field;
         setErrors({ [field]: error.response.data.message });

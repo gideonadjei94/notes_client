@@ -34,11 +34,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const { showToast } = useToast();
 
   const saveAuthData = useCallback((authResponse: AuthResponse) => {
-    const { user, tokens } = authResponse;
-    setUser(user);
-    sessionStorage.setUser(user);
-    sessionStorage.setAccessToken(tokens.accessToken);
-    localStorage.setRefreshToken(tokens.refreshToken);
+    const { userId, username, email, token, refresh_token } = authResponse;
+    setUser({ userId, username, email, token });
+    sessionStorage.setUser({ userId, username, email, token });
+    sessionStorage.setAccessToken(refresh_token);
+    localStorage.setRefreshToken(refresh_token);
   }, []);
 
   const loadUser = useCallback(async () => {

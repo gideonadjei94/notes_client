@@ -34,7 +34,6 @@ class ApiService {
   }
 
   private setupInterceptors() {
-    // Request interceptor
     this.api.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
         const token = sessionStorage.getAccessToken();
@@ -46,7 +45,6 @@ class ApiService {
       (error) => Promise.reject(error)
     );
 
-    // Response interceptor
     this.api.interceptors.response.use(
       (response) => response,
       async (error: AxiosError) => {
@@ -76,10 +74,10 @@ class ApiService {
             }
 
             const response = await this.refreshToken(refreshToken);
-            const { accessToken } = response.tokens;
+            const accessToken = response.token;
 
             sessionStorage.setAccessToken(accessToken);
-            localStorage.setRefreshToken(response.tokens.refreshToken);
+            localStorage.setRefreshToken(response.refresh_token);
 
             this.refreshSubscribers.forEach((callback) =>
               callback(accessToken)
@@ -92,7 +90,7 @@ class ApiService {
             return this.api(originalRequest);
           } catch (refreshError) {
             clearAllStorage();
-            window.location.href = "/auth/login";
+            window.location.href = "/auth";
             return Promise.reject(refreshError);
           } finally {
             this.isRefreshing = false;
@@ -146,20 +144,15 @@ class ApiService {
     return response.data;
   }
 
-  // Notes endpoints
   async getNotes(filters: NotesFilters = {}): Promise<NotesResponse> {
     const params = new URLSearchParams();
 
     if (filters.search) params.append("search", filters.search);
-    if (filters.tags && filters.tags.length > 0) {
-      params.append("tags", filters.tags.join(","));
-    }
-    if (filters.page) params.append("page", filters.page.toString());
-    if (filters.pageSize)
-      params.append("pageSize", filters.pageSize.toString());
+    if (filters.tag) params.append("tag", filters.tag);
+    if (filters.page !== undefined)
+      params.append("page", filters.page.toString());
+    if (filters.size) params.append("size", filters.size.toString());
     if (filters.sortBy) params.append("sortBy", filters.sortBy);
-    if (filters.sortOrder) params.append("sortOrder", filters.sortOrder);
-    if (filters.includeDeleted) params.append("includeDeleted", "true");
 
     const response = await this.api.get<NotesResponse>(
       `/notes?${params.toString()}`
@@ -177,8 +170,19 @@ class ApiService {
     return response.data;
   }
 
-  async updateNote(id: number, data: UpdateNoteRequest): Promise<Note> {
-    const response = await this.api.put<Note>(`/notes/${id}`, data);
+  async updateNote(
+    id: number,
+    data: UpdateNoteRequest,
+    version?: number
+  ): Promise<Note> {
+    const headers: Record<string, string> = {};
+    if (version !== undefined) {
+      headers["If-Match"] = `"${version}"`;
+    }
+
+    const response = await this.api.put<Note>(`/notes/${id}`, data, {
+      headers,
+    });
     return response.data;
   }
 

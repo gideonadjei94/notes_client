@@ -2,16 +2,15 @@ export interface User {
   userId: number;
   username: string;
   email: string;
-}
-
-export interface AuthTokens {
-  accessToken: string;
-  refreshToken: string;
+  token: string;
 }
 
 export interface AuthResponse {
-  user: User;
-  tokens: AuthTokens;
+  userId: number;
+  username: string;
+  email: string;
+  token: string;
+  refresh_token: string;
 }
 
 export interface Note {
@@ -19,17 +18,19 @@ export interface Note {
   title: string;
   content: string;
   tags: string[];
+  version: number;
   createdAt: string;
   updatedAt: string;
-  deleted: boolean;
+  deletedAt?: string | null;
 }
 
 export interface NotesResponse {
   notes: Note[];
-  total: number;
   page: number;
-  pageSize: number;
+  size: number;
+  totalElements: number;
   totalPages: number;
+  last: boolean;
 }
 
 export interface CreateNoteRequest {
@@ -39,17 +40,15 @@ export interface CreateNoteRequest {
 }
 
 export interface UpdateNoteRequest {
-  title?: string;
-  content?: string;
-  tags?: string[];
+  title: string;
+  content: string;
+  tags: string[];
 }
 
 export interface NotesFilters {
   search?: string;
-  tags?: string[];
+  tag?: string;
   page?: number;
-  pageSize?: number;
+  size?: number;
   sortBy?: "createdAt" | "updatedAt" | "title";
-  sortOrder?: "asc" | "desc";
-  includeDeleted?: boolean;
 }
