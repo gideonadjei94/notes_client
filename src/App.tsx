@@ -6,31 +6,34 @@ import Auth from "./pages/auth";
 import Dashboard from "./pages/dashboard";
 import ProtectedRoute from "./components/routes/protected-routes";
 import PublicRoute from "./components/routes/public-routes";
+import { NotesProvider } from "./context/notes-context";
 
 function App() {
   return (
     <ToastProvider>
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route
-            path="/auth"
-            element={
-              <PublicRoute restricted>
-                <Auth />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </AuthProvider>
+      <NotesProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route
+              path="/auth"
+              element={
+                <PublicRoute restricted>
+                  <Auth />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </AuthProvider>
+      </NotesProvider>
     </ToastProvider>
   );
 }

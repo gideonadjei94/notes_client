@@ -39,7 +39,7 @@ const NotesList: React.FC = () => {
 
   if (notes.length === 0) {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12">
+      <div className="bg-white rounded-xl  border border-slate-300 p-12">
         <div className="text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
             <FileText className="w-8 h-8 text-gray-400" />
@@ -57,14 +57,12 @@ const NotesList: React.FC = () => {
 
   return (
     <>
-      {/* Notes Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         {notes.map((note: Note) => (
           <NoteCard key={note.id} note={note} onEdit={handleEditNote} />
         ))}
       </div>
 
-      {/* Pagination */}
       {pagination.totalPages > 1 && (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
           <div className="flex items-center justify-between">
