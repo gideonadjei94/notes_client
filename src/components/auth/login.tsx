@@ -62,7 +62,6 @@ const Login: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -136,9 +135,9 @@ const Login: React.FC = () => {
             className="absolute inset-y-0 right-0 pr-3 flex items-center"
           >
             {showPassword ? (
-              <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer" />
             ) : (
-              <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer" />
             )}
           </button>
         </div>
@@ -147,12 +146,11 @@ const Login: React.FC = () => {
         )}
       </div>
 
-      {/* Submit Button */}
       <button
         type="submit"
         disabled={isLoading}
         className={clsx(
-          "w-full py-2.5 px-4 rounded-lg font-medium text-white",
+          "w-full py-2.5 px-4 rounded-lg font-medium text-white cursor-pointer",
           "transition-all duration-200",
           "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
           isLoading

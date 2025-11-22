@@ -97,7 +97,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit }) => {
                 onClick={handleRestore}
                 disabled={isRestoring}
                 className={clsx(
-                  "p-2 rounded-lg transition-colors",
+                  "p-2 rounded-lg transition-colors cursor-pointer",
                   "text-green-600 hover:bg-green-50",
                   "focus:outline-none focus:ring-2 focus:ring-green-500",
                   isRestoring && "opacity-50 cursor-not-allowed"
@@ -111,7 +111,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit }) => {
                 <button
                   onClick={() => onEdit(note)}
                   className={clsx(
-                    "p-2 rounded-lg transition-colors",
+                    "p-2 rounded-lg transition-colors cursor-pointer",
                     "text-blue-600 hover:bg-blue-50",
                     "focus:outline-none focus:ring-2 focus:ring-blue-500"
                   )}
@@ -123,7 +123,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit }) => {
                   onClick={handleDelete}
                   disabled={isDeleting}
                   className={clsx(
-                    "p-2 rounded-lg transition-colors",
+                    "p-2 rounded-lg transition-colors cursor-pointer",
                     "text-red-600 hover:bg-red-50",
                     "focus:outline-none focus:ring-2 focus:ring-red-500",
                     isDeleting && "opacity-50 cursor-not-allowed"

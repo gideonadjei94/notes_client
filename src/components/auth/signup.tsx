@@ -85,7 +85,6 @@ const Signup: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      {/* Username Field */}
       <div>
         <label
           htmlFor="username"
@@ -119,7 +118,6 @@ const Signup: React.FC = () => {
         )}
       </div>
 
-      {/* Email Field */}
       <div>
         <label
           htmlFor="email"
@@ -153,7 +151,6 @@ const Signup: React.FC = () => {
         )}
       </div>
 
-      {/* Password Field */}
       <div>
         <label
           htmlFor="password"
@@ -187,9 +184,9 @@ const Signup: React.FC = () => {
             className="absolute inset-y-0 right-0 pr-3 flex items-center"
           >
             {showPassword ? (
-              <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer" />
             ) : (
-              <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer" />
             )}
           </button>
         </div>
@@ -198,7 +195,6 @@ const Signup: React.FC = () => {
         )}
       </div>
 
-      {/* Confirm Password Field */}
       <div>
         <label
           htmlFor="confirmPassword"
@@ -232,9 +228,9 @@ const Signup: React.FC = () => {
             className="absolute inset-y-0 right-0 pr-3 flex items-center"
           >
             {showConfirmPassword ? (
-              <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer" />
             ) : (
-              <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer" />
             )}
           </button>
         </div>
@@ -248,7 +244,7 @@ const Signup: React.FC = () => {
         type="submit"
         disabled={isLoading}
         className={clsx(
-          "w-full py-2.5 px-4 rounded-lg font-medium text-white",
+          "w-full py-2.5 px-4 rounded-lg font-medium text-white cursor-pointer",
           "transition-all duration-200",
           "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
           isLoading
